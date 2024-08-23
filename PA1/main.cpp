@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
 
     string inputFileText = readFromFile(inputFilePath);
     string keyFileText = readFromFile(keyFilePath);
+    
     blockEncrypt(inputFileText, outputFilePath, keyFilePath);
 
     return 0;
