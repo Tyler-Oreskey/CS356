@@ -43,5 +43,8 @@ int main(int argc, char* argv[]) {
     
     blockEncrypt(inputFileText, outputFilePath, keyFileText);
 
+    string outputFileText = readFromFile(outputFilePath);
+    blockDecrypt(outputFileText, outputFilePath, keyFileText);
+
     return 0;
 }
