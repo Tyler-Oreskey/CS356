@@ -39,12 +39,7 @@ int main(int argc, char* argv[]) {
     }
 
     string inputFileText = readFromFile(inputFilePath);
-    string keyFileText = readFromFile(keyFilePath);
-    
-    blockEncrypt(inputFileText, outputFilePath, keyFileText);
-
-    string outputFileText = readFromFile(outputFilePath);
-    blockDecrypt(outputFileText, outputFilePath, keyFileText);
+    string key = readFromFile(keyFilePath);
 
     return 0;
 }
