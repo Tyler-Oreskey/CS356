@@ -1,6 +1,8 @@
 #ifndef STREAM_H
 #define STREAM_H
 
-void streamCipher();
+#include <string>
+
+void streamCipher(const std::string&, const std::string&, const std::string&);
 
 #endif
