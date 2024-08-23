@@ -53,17 +53,21 @@ string readFromFile(const string& filePath) {
 string padString(const string& str, const int chunkSize) {
     int strSize = str.size();
 
-    if (strSize >= chunkSize) {
-        cerr << "No padding needed";
-        return str;
-    }
-    
-    char paddingByte = static_cast<char>(0x81);
+    const char paddingByte = static_cast<char>(0x81);
 
     string result = str;
     result.append(chunkSize - strSize, paddingByte);
 
     return result;
+}
+
+string removePadding(const string& block) {
+    const char paddingByte = static_cast<char>(0x81);
+    string result = block;
+
+    size_t position = result.find_last_not_of(paddingByte);
+    
+    return result.substr(0, position + 1);
 }
 
 string xorBlock(const string& str1, const string& str2, const int chunkSize) {
@@ -83,17 +87,12 @@ string swapBytes(const string& block, const string& key) {
     string result = block;
 
     while (start < end) {
-        for (int i = 0; i < keySize; ++i) {
-            int modValue = static_cast<int>(key[i]) % 2;
-
-            if (modValue == 0) {
-                start++;
-            }
-            else {
-                swap(result[start], result[end]);
-                start++;
-                end--;
-            }
+        if (key[start % keySize] % 2 == 0) {
+            start++;
+        } else {
+            swap(result[start], result[end]);
+            start++;
+            end--;
         }
     }
 

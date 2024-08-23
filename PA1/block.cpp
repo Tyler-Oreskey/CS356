@@ -27,6 +27,20 @@ void blockEncrypt(const string& inputFileText, const string& outputFilePath, con
     writeToFile(outputFilePath, encryptedMessage);
 }
 
-void blockDecrypt(const string& inputFilePath, const string& outputFilePath, const string& keyFilePath) {
-    // TODO: implement this
+void blockDecrypt(const string& inputFileText, const string& outputFilePath, const string& keyFileText) {
+    const int chunkSize = 16;
+    int dataSize = inputFileText.size();
+    string decryptedMessage;
+
+    for (int i = 0; i < dataSize; i += chunkSize) {
+        string chunk = inputFileText.substr(i, chunkSize);
+        string swapped = swapBytes(chunk, keyFileText);
+        string xorResult = xorBlock(swapped, keyFileText, chunkSize);
+
+        decryptedMessage += xorResult;
+    }
+
+    decryptedMessage = removePadding(decryptedMessage);
+
+    writeToFile(outputFilePath, decryptedMessage);
 }
