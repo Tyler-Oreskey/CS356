@@ -1,8 +1,10 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-void blockEncrypt();
-void blockDecrypt();
+#include <string>
+
+void blockEncrypt(const std::string&, const std::string&, const std::string&);
+void blockDecrypt(const std::string&, const std::string&, const std::string&);
 
 #endif
 
