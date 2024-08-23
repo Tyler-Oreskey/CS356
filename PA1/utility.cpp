@@ -17,7 +17,6 @@ void writeToFile(const string& filePath, const string& data) {
     ofstream outputFile(filePath);
 
     if (!outputFile) {
-        outputFile.setstate(ios::failbit);
         cerr << "Could not open output file for writing";
         exit(1);
     }
@@ -35,7 +34,6 @@ string readFromFile(const string& filePath) {
     ifstream file(filePath);
 
     if (!file.is_open()) {
-        file.setstate(ios::failbit);
         cerr << "Error opening the file" << endl;
         exit(1); 
     }
@@ -49,4 +47,20 @@ string readFromFile(const string& filePath) {
     file.close();
 
     return fileContents;
+}
+
+string padString(const string& str, int chunkSize) {
+    size_t strSize = str.size();
+
+    if (strSize >= chunkSize) {
+        cerr << "No padding needed";
+        return str;
+    }
+    
+    char paddingByte = static_cast<char>(0x81);
+
+    string result = str;
+    result.append(chunkSize - strSize, paddingByte);
+
+    return result;
 }
