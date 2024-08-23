@@ -73,13 +73,13 @@ string removePadding(const string& block) {
 }
 
 string xorBlock(const string& str1, const string& str2, const int chunkSize) {
-    string xorResult(chunkSize, '\0');
+    string result(chunkSize, '\0');
 
     for (int i = 0; i < chunkSize; ++i) {
-        xorResult[i] = str1[i] ^ str2[i];
+        result[i] = str1[i] ^ str2[i];
     }
 
-    return xorResult;
+    return result;
 }
 
 string swapBytes(const string& block, const string& key) {
@@ -92,9 +92,7 @@ string swapBytes(const string& block, const string& key) {
         if (key[start % keySize] % 2 == 0) {
             start++;
         } else {
-            swap(result[start], result[end]);
-            start++;
-            end--;
+            swap(result[start++], result[end--]);
         }
     }
 
