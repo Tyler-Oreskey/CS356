@@ -6,11 +6,11 @@
 
 using namespace std;
 
-void blockEncrypt(const string& inputFileText, const string& outputFilePath, const string& key) {
+void blockEncrypt(const string& message, const string& outputFilePath, const string& key) {
     const int chunkSize = 16;
-    int dataSize = inputFileText.size();
+    int dataSize = message.size();
 
-    string paddedMessage = padString(inputFileText, 16);
+    string paddedMessage = padString(message, chunkSize);
     string encryptedMessage;
 
     for (int i = 0; i < dataSize; i += chunkSize) {
@@ -24,13 +24,13 @@ void blockEncrypt(const string& inputFileText, const string& outputFilePath, con
     writeToFile(outputFilePath, encryptedMessage);
 }
 
-void blockDecrypt(const string& inputFileText, const string& outputFilePath, const string& key) {
+void blockDecrypt(const string& message, const string& outputFilePath, const string& key) {
     const int chunkSize = 16;
-    int dataSize = inputFileText.size();
+    int dataSize = message.size();
     string decryptedMessage;
 
     for (int i = 0; i < dataSize; i += chunkSize) {
-        string chunk = inputFileText.substr(i, chunkSize);
+        string chunk = message.substr(i, chunkSize);
         string swapped = swapBytes(chunk, key);
         string xorResult = xorBlock(swapped, key, chunkSize);
 
