@@ -38,5 +38,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    string inputFileText = readFromFile(inputFilePath);
+
     return 0;
 }

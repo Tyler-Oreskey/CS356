@@ -5,5 +5,6 @@
 
 bool fileExists(const std::string&);
 void writeToFile(const std::string&, const std::string&);
+std::string readFromFile(const std::string&);
 
 #endif

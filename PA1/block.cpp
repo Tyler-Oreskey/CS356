@@ -1,9 +1,13 @@
 #include "block.h"
 
-void blockEncrypt() {
+#include <string>
+
+using namespace std;
+
+void blockEncrypt(const string& inputFilePath, const string& outputFilePath, const string& keyFilePath) {
     // TODO: implement this
 }
 
-void blockDecrypt() {
+void blockDecrypt(const string& inputFilePath, const string& outputFilePath, const string& keyFilePath) {
     // TODO: implement this
 }
