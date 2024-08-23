@@ -52,11 +52,13 @@ string readFromFile(const string& filePath) {
 
 string padString(const string& str, const int chunkSize) {
     int strSize = str.size();
+    string result = str;
 
     const char paddingByte = static_cast<char>(0x81);
 
-    string result = str;
-    result.append(chunkSize - strSize, paddingByte);
+    if (strSize % chunkSize != 0) {
+        result.append(chunkSize - (strSize % chunkSize), paddingByte);
+    }
 
     return result;
 }
