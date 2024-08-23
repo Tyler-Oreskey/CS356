@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -75,7 +76,26 @@ string xorBlock(const string& str1, const string& str2, const int chunkSize) {
     return xorResult;
 }
 
-string swapBytes(const string& block) {
-    // implement this
-    return "";
+string swapBytes(const string& block, const string& key) {
+    int start = 0;
+    int end = block.size() - 1;
+    int keySize = key.size();
+    string result = block;
+
+    while (start < end) {
+        for (int i = 0; i < keySize; ++i) {
+            int modValue = static_cast<int>(key[i]) % 2;
+
+            if (modValue == 0) {
+                start++;
+            }
+            else {
+                swap(result[start], result[end]);
+                start++;
+                end--;
+            }
+        }
+    }
+
+    return result;
 }

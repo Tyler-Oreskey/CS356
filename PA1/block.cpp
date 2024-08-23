@@ -9,6 +9,7 @@ using namespace std;
 void blockEncrypt(const string& inputFileText, const string& outputFilePath, const string& keyFileText) {
     const int chunkSize = 16;
     int dataSize = inputFileText.size();
+    string encryptedMessage;
 
     for (int i = 0; i < dataSize; i += chunkSize) {
         string chunk = inputFileText.substr(i, chunkSize);
@@ -18,10 +19,12 @@ void blockEncrypt(const string& inputFileText, const string& outputFilePath, con
         }
 
         string xorResult = xorBlock(chunk, keyFileText, chunkSize);
+        string swapped = swapBytes(xorResult, keyFileText);
 
-        // swap bytes
+        encryptedMessage += swapped;
     }
-    
+
+    writeToFile(outputFilePath, encryptedMessage);
 }
 
 void blockDecrypt(const string& inputFilePath, const string& outputFilePath, const string& keyFilePath) {
