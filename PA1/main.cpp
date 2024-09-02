@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     if (argc != 6) {
-        cerr << "Invalid number of arguments.";
+        cerr << "Invalid number of arguments." << endl;
         return 1;
     }
 
@@ -19,22 +19,22 @@ int main(int argc, char* argv[]) {
     string modeType = argv[5];
 
     if (cipherType != "B" && cipherType != "S") {
-        cerr << "Invalid Function Type";
+        cerr << "Invalid Function Type" << endl;
         return 1;
     }
 
     if (!fileExists(inputFilePath)) {
-        cerr << "Input File Does Not Exist";
+        cerr << "Input File Does Not Exist" << endl;
         return 1;
     }
 
     if (!fileExists(keyFilePath)) {
-        cerr << "Key File Does Not Exist";
+        cerr << "Key File Does Not Exist" << endl;
         return 1;
     }
 
     if (modeType != "E" && modeType != "D") {
-        cerr << "Invalid Mode Type";
+        cerr << "Invalid Mode Type" << endl;
         return 1;
     }
 
