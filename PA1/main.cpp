@@ -38,8 +38,20 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    string inputFileText = readFromFile(inputFilePath);
+    string text = readFromFile(inputFilePath);
     string key = readFromFile(keyFilePath);
+
+    if (cipherType == "B") {
+        if (modeType == "E") {
+            blockCypherEncrypt(text, outputFilePath, key);
+        }
+        else if (modeType == "D") {
+            blockCypherDecrypt(text, outputFilePath, key);
+        }
+    }
+    else if (cipherType == "S") {
+        streamCipher(text, outputFilePath, key);
+    }
 
     return 0;
 }

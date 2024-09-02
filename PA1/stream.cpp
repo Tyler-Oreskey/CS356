@@ -1,25 +1,20 @@
 #include "stream.h"
+#include "utility.h"
 
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-string xorStreamCipher(const string& data, const string& key) {
-    int dataSize = data.size();
+void streamCipher(const string& message, const string& outputFilePath, const string& key) {
+    int dataSize = message.size();
     int keySize = key.size();
 
     string result(dataSize, '\0');
 
     for (int i = 0; i < dataSize; ++i) {
-        char keyChar = key[i % keySize];
-        result[i] = data[i] ^ keyChar;
+        result[i] = message[i] ^ key[i % keySize];
     }
 
-    return result;
-}
-
-void streamCipher(const string& message, const string& outputFilePath, const string& key) {
-    string encryptedData = xorStreamCipher(message, key);
-    string decryptedData = xorStreamCipher(encryptedData, key);
+    writeToFile(outputFilePath, result);
 }

@@ -55,7 +55,7 @@ string swapBytes(const string& block, const string& key) {
     return result;
 }
 
-void blockEncrypt(const string& message, const string& outputFilePath, const string& key) {
+void blockCypherEncrypt(const string& message, const string& outputFilePath, const string& key) {
     const int chunkSize = 16;
     int dataSize = message.size();
 
@@ -73,7 +73,7 @@ void blockEncrypt(const string& message, const string& outputFilePath, const str
     writeToFile(outputFilePath, encryptedMessage);
 }
 
-void blockDecrypt(const string& message, const string& outputFilePath, const string& key) {
+void blockCypherDecrypt(const string& message, const string& outputFilePath, const string& key) {
     const int chunkSize = 16;
     int dataSize = message.size();
     string decryptedMessage;

@@ -3,8 +3,8 @@
 
 #include <string>
 
-void blockEncrypt(const std::string&, const std::string&, const std::string&);
-void blockDecrypt(const std::string&, const std::string&, const std::string&);
+void blockCypherEncrypt(const std::string&, const std::string&, const std::string&);
+void blockCypherDecrypt(const std::string&, const std::string&, const std::string&);
 
 #endif
 
