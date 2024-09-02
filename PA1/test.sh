@@ -14,15 +14,12 @@ init() {
     rm -rf $OUTPUT_FILE
     rm -rf $KEY_FILE
 
-    # Create or touch files
     touch "$INPUT_FILE"
     touch "$OUTPUT_FILE"
     touch "$KEY_FILE"
 
-    # Get the parameter for the function
     local plainTextFile="$1"
 
-    # Check the value of plainTextFile
     if [ "$plainTextFile" -eq 1 ]; then
         echo "$PLAIN_TEXT_1" > "$INPUT_FILE"
     elif [ "$plainTextFile" -eq 2 ]; then
@@ -33,7 +30,6 @@ init() {
         echo "Invalid input for plainTextFile. Must be 1 or 2."
     fi
 
-    # Write to key file and output file
     echo "$KEY_TXT" > "$KEY_FILE"
     echo "" > "$OUTPUT_FILE"
 }
@@ -69,6 +65,28 @@ b_test_encrypt_to_decrypt() {
     echo "Files are the same."
 }
 
+s_test_encrypt_to_decrypt() {
+    # Stream Cypher Encrypt -> Decrypt
+    $PROGRAM S $INPUT_FILE $OUTPUT_FILE $KEY_FILE E
+    assert_not "diff -q $INPUT_FILE $OUTPUT_FILE" "File: $INPUT_FILE and File: $OUTPUT_FILE should not be the same."
+
+    # Stream Cypher Decrypt -> Encrypt
+    $PROGRAM S $OUTPUT_FILE $OUTPUT_FILE $KEY_FILE D
+    assert "diff -q $INPUT_FILE $OUTPUT_FILE" "File: $INPUT_FILE and File: $OUTPUT_FILE should be the same."
+    echo "Files are the same."
+}
+
+s_test_decrypt_to_encrypt() {
+    # Stream Cypher Decrypt -> Encrypt
+    $PROGRAM S $INPUT_FILE $OUTPUT_FILE $KEY_FILE D
+    assert_not "diff -q $INPUT_FILE $OUTPUT_FILE" "File: $INPUT_FILE and File: $OUTPUT_FILE should not be the same."
+
+    # Stream Cypher Encrypt -> Decrypt
+    $PROGRAM S $OUTPUT_FILE $OUTPUT_FILE $KEY_FILE E
+    assert "diff -q $INPUT_FILE $OUTPUT_FILE" "File: $INPUT_FILE and File: $OUTPUT_FILE should be the same."
+    echo "Files are the same."
+}
+
 init 1
 b_test_encrypt_to_decrypt
 
@@ -77,3 +95,10 @@ b_test_encrypt_to_decrypt
 
 init 3
 b_test_encrypt_to_decrypt
+
+init 1
+s_test_encrypt_to_decrypt
+
+init 3
+s_test_decrypt_to_encrypt
+
